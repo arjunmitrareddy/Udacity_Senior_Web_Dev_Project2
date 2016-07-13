@@ -36,10 +36,10 @@ export default class Server {
         this._app.use('/css', express.static('../public/css', staticOptions));
         this._app.use('/imgs', express.static('../public/imgs', staticOptions));
         this._app.use('/avatars', express.static('../public/avatars', staticOptions));
-        this._app.use('/serviceWorker.js', express.static('../public/serviceWorker.js', staticOptions));
-        this._app.use('/serviceWorker.js.map', express.static('../public/serviceWorker.js.map', staticOptions));
         this._app.use('/fonts', express.static('../public/fonts'));
         this._app.use('/gtfs', express.static('../public/gtfs', staticOptions));
+        this._app.use('/serviceWorker.js', express.static('../public/serviceWorker.js', staticOptions));
+        this._app.use('/serviceWorker.js.map', express.static('../public/serviceWorker.js.map', staticOptions));
 
         this._app.get('/', (req, res) => {
             res.send(indexTemplate({

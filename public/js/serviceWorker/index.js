@@ -10,7 +10,13 @@ self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(imagesCache).then((cache) => {
             return cache.addAll([
-                'imgs/favicon.png'
+                'imgs/favicon.png',
+                'fonts/FontAwesome.otf',
+                'fonts/fontawesome-webfont.eot',
+                'fonts/fontawesome-webfont.svg',
+                'fonts/fontawesome-webfont.ttf',
+                'fonts/fontawesome-webfont.woff',
+                'fonts/fontawesome-webfont.woff2'
             ])
         })
     )
