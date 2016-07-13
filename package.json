@@ -56,7 +56,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "gulp serve"
+    "serve": "gulp serve",
+    "start": "gulp serve"
   },
   "author": "Arjun Mitra Reddy Donthala",
   "license": "MIT"
