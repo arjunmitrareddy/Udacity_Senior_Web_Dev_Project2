@@ -3,7 +3,7 @@ import minimist from 'minimist';
 
 const argv = minimist(process.argv, {
    'default' : {
-       'server-port' : 8080
+       'server-port' : process.env.PORT || 8080
    }
 });
 

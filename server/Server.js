@@ -56,7 +56,7 @@ export default class Server {
 
     _listen() {
         if (!this._appServerUp) {
-            this._appServer.listen(this._port, _ => {
+            this._appServer.listen(process.env.PORT || this._port, _ => {
                 console.log("Server Listening on localhost:" + this._port);
             });
             this._appServerUp = true;
