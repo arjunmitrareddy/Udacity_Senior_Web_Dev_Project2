@@ -1,2 +1,0 @@
-"use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{"default":e}}var _Server=require("./Server"),_Server2=_interopRequireDefault(_Server),_minimist=require("minimist"),_minimist2=_interopRequireDefault(_minimist),argv=(0,_minimist2["default"])(process.argv,{"default":{"server-port":process.env.PORT||8080}}),server=new _Server2["default"](argv["server-port"]);server._listen();
-//# sourceMappingURL=index.js.map
