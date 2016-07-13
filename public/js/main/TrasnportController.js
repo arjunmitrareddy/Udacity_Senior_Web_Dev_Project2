@@ -74,6 +74,9 @@ function setupIDBStores() {
         var stopsTimesStore = upgradeDb.createObjectStore('stop_times', {
             keyPath: 'stop_time_id'
         });
+        var tripsStore = upgradeDb.createObjectStore('trips', {
+            keyPath: 'trip_id'
+        });
     })
 }
 TransportController.prototype._createStopsIDB = function() {

@@ -14,7 +14,6 @@ export default function InfopanelController(dbPromise) {
     this._stationsOnly = [];
     this._allStopsOnly = [];
     this._allStopTimesInfo = [];
-    this._allTripsInfo = [];
     this._tripsBetweenStations = [];
     this._routesBetweenStationsForEachTrip = [];
     this._dbPromise = dbPromise;
@@ -84,8 +83,17 @@ InfopanelController.prototype._appendTripsToUI = function(start, end) {
     $('#stations-animation').show();
     this._routesBetweenStationsForEachTrip.forEach((stopTime) => {
         var newLi = $('<li class="route-li"><i class="glyphicon glyphicon-flag station-spacer"></i></li>');
+
         if (stopTime[0] && stopTime[0].trip_id) {
-            newLi.append("Train - " + stopTime[0].trip_id);
+            var day = 'Weekdays Only';
+            if (stopTime[0].trip_id.slice(-1) == 'a') {
+                day = 'Saturdays Only'
+            }
+            else if (stopTime[0].trip_id.slice(-1) == 'u') {
+                day = 'Sundays Only'
+            }
+            var tripIdMod = (day == 'Weekdays Only') ? stopTime[0].trip_id : stopTime[0].trip_id.substring(0, stopTime[0].trip_id.length - 1);
+            newLi.append(`Train - ${tripIdMod} (${day})`);
             liArr.push(newLi);
         }
     });
