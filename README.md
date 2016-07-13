@@ -18,7 +18,7 @@ HTML5
 CSS3  
 BootStrap 3  
 
-##Compile Used:
+##Compiler Used:
 [Babel](https://babeljs.io/)
 
 ##Instructions to Run the Application:
