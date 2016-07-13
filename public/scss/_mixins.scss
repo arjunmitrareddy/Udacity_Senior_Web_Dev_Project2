@@ -1,0 +1,16 @@
+@mixin contactButton() {
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  float:left;
+  width: 50%;
+  border: #fbfbfb solid 4px;
+  cursor:pointer;
+  color:white;
+  font-size:24px;
+  padding-top:22px;
+  padding-bottom:22px;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  margin-top:-4px;
+  font-weight:700;
+}

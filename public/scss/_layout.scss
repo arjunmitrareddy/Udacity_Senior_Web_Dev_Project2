@@ -1,0 +1,68 @@
+.layout {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.main {
+  flex :1;
+  display: flex;
+  overflow: auto;
+  position: relative;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  line-height: 0 !important;
+}
+
+.scroller {
+  overflow: hidden;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+.route-li {
+  list-style: none;
+  background: #d1703c;
+  color: #fff;
+  line-height: 2em;
+  margin-bottom: 10px;
+  padding: 0 0.5em;
+  overflow: hidden;
+  width: 25em;
+}
+.stations-span {
+  border: 0;
+  display: table;
+  margin: auto;
+}
+#station-list {
+  padding: 0 !important;
+  text-align: center;
+}
+
+.station-spacer {
+  margin-right: 5px;
+}
+.swing {
+  perspective: 100px;
+
+  .route-li {
+    opacity: 0;
+    transform: rotateX(-90deg);
+    transition: all 0.5s cubic-bezier(.36,-0.64,.34,1.76);
+  }
+  .route-table {
+    opacity: 0;
+    transform: rotateX(1deg);
+    transition: all 0.5s cubic-bezier(.36,-0.64,.34,1.76);
+  }
+  .station-show {
+    opacity: 1;
+    transform: none;
+    transition: all 0.5s cubic-bezier(.36,-0.64,.34,1.76);
+  }
+}
+

@@ -1,0 +1,46 @@
+<div class="container">
+    <form class="well form-horizontal" id="search_form" onsubmit="return false">
+        <fieldset>
+            <legend>Search Trains</legend>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="fromstation">Depart *</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-train" aria-hidden="true"></i></span>
+                        <input id="fromstation" name="fromstation" class="form-control" type="text" placeholder="From" autofocus required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="tostation">Arrive *</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-train" aria-hidden="true"></i></span>
+                        <input id="tostation" name="tostation" class="form-control"  type="text" placeholder="To" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="getTrains"></label>
+                <div class="col-md-4">
+                    <input type="submit" value="Get Trains!" id="getTrains" class="form-control btn btn-default">
+                </div>
+            </div>
+
+
+            <div class="form-group" id="stations-animation">
+                <label id="travel-label" class="col-md-4 control-label"></label>
+                <div class="col-md-4 inputGroupContainer">
+                    <span class="input-group-addon stations-span swing" style="text-align: center">
+                        <ul id="station-list">
+                        </ul>
+                    </span>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
