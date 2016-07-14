@@ -1,4 +1,4 @@
-var staticCache = 'transport-info-v13';
+var staticCache = 'transport-info-v1';
 var imagesCache = 'transport-imgs';
 
 var allCaches = [
@@ -25,9 +25,11 @@ self.addEventListener('install', (event) => {
                         'fonts/FontAwesome.otf',
                         'fonts/fontawesome-webfont.eot',
                         'fonts/fontawesome-webfont.svg',
-                        'fonts/fontawesome-webfont.ttf',
-                        'fonts/fontawesome-webfont.woff',
-                        'fonts/fontawesome-webfont.woff2'
+                        'fonts/fontawesome-webfont.ttf?v=4.6.3',
+                        'fonts/fontawesome-webfont.woff?v=4.6.3',
+                        'fonts/fontawesome-webfont.woff2?v=4.6.3',
+                        'gtfs/stops.json',
+                        'gtfs/stop_times.json'
                     ])
                 })
             ]
@@ -52,12 +54,12 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
     var requestUrl = new URL(event.request.url);
     if (requestUrl.origin === location.origin) {
-        if (requestUrl.pathname.indexOf('/imgs/') != -1) {
+        if (requestUrl.pathname.startsWith('/imgs/')) {
             event.respondWith(serveAssets(event.request, imagesCache));
             return;
         }
-        if (requestUrl.pathname.indexOf('/js/') != -1 || requestUrl.pathname.indexOf('/css/') != -1 || requestUrl.pathname.indexOf('/gtfs/') != -1) {
-            event.respondWith(serveAssets(event.request, staticCache));
+        if (requestUrl.pathname.startsWith('/fonts/')) {
+            event.respondWith(serveAssets(event.request, imagesCache));
             return;
         }
         event.respondWith(
@@ -76,13 +78,11 @@ self.addEventListener('message', (event) => {
 });
 
 function serveAssets(request, cacheName) {
-    var url = request.url;
-
     return caches.open(cacheName).then((cache) => {
-        return cache.match(url).then((response) => {
+        return cache.match(request).then((response) => {
             if (response) return response;
             return fetch(request).then((response) => {
-                cache.put(url, response.clone());
+                cache.put(request, response.clone());
                 return response;
             });
         });
