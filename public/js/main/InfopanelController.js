@@ -7,7 +7,7 @@ import autocomplete from 'jquery-autocomplete';
 import _find from 'lodash/collection/find';
 import _findIndex from 'lodash/array/findIndex';
 import _flattenDeep from 'lodash/array/flattenDeep';
-import dropdown from './../utils/jquery.dropdown';
+
 
 export default function InfopanelController(dbPromise) {
     $('#stations-animation').hide();
@@ -81,23 +81,28 @@ InfopanelController.prototype._appendTripsToUI = function(start, end) {
     var liArr = [];
     $('#travel-label').append(`Trains From '${start}' to '${end}':`);
     $('#stations-animation').show();
+    var day = null;
     this._routesBetweenStationsForEachTrip.forEach((stopTime) => {
-        var newLi = $('<li class="route-li"><i class="glyphicon glyphicon-flag station-spacer"></i></li>');
-
+        var newLi = $('<li class="route-li"><i class="fa fa-train station-spacer" aria-hidden="true"></i></li>');
         if (stopTime[0] && stopTime[0].trip_id) {
-            var day = 'Weekdays Only';
+            day = 'Weekday';
             if (stopTime[0].trip_id.slice(-1) == 'a') {
-                day = 'Saturdays Only'
+                day = 'Saturday'
             }
             else if (stopTime[0].trip_id.slice(-1) == 'u') {
-                day = 'Sundays Only'
+                day = 'Sunday'
             }
-            var tripIdMod = (day == 'Weekdays Only') ? stopTime[0].trip_id : stopTime[0].trip_id.substring(0, stopTime[0].trip_id.length - 1);
-            newLi.append(`Train - ${tripIdMod} (${day})`);
+            var fromTime = stopTime[0].arrival_time.slice(0, -3).split(":");
+            var toTime = stopTime.slice(-1)[0].arrival_time.slice(0, -3).split(":");
+
+            var time = this._calculateTime(fromTime, toTime);
+
+
+            newLi.append(`Train - ${stopTime[0].trip_id},  Duration - ${time[0]}:${time[1]}`);
             liArr.push(newLi);
         }
     });
-    var errLi = $('<li class="route-li"><i class="glyphicon glyphicon-remove station-spacer"></i>No Trains!</li>');
+    var errLi = $('<li class="route-li"><i class="fa fa-exclamation-triangle station-spacer" aria-hidden="true"></i>No Trains!</li>');
     var stationList = $('#station-list');
     liArr.length > 0 ? stationList.append(liArr) : stationList.append(errLi);
     if (liArr.length > 0) {
@@ -118,21 +123,30 @@ InfopanelController.prototype._appendTripsToUI = function(start, end) {
                 });
                 if (!$(e.target).next().is('table')) {
                     $('#station-list > table').not($(e.target).next()).hide();
-                    var table = $('<table class="table table-bordered route-table"><thead><tr><th>Route</th><th>Arrival</th><th>Facilities</th></tr></thead></table>');
+                    var table = $('<table class="table table-bordered route-table"><thead><tr><th>Route</th><th>Arrival</th><th>Departure</th><th>Facilities</th><th>Day Service</th></tr></thead></table>');
                     var body = $('<tbody></tbody>');
                     var parentTrs = [];
                     stations.forEach((station) => {
-                        var tr = $('<tr></tr>');
+                        var tr = $('<tr style="text-align: left"></tr>');
                         var match = _find(this._allStopsOnly, (stop) => stop.stop_id == station.stop_id );
                         var td1 = $('<td></td>');
                         td1.append($('<i class="fa fa-train" aria-hidden="true" style="margin-right: 3px"></i>'));
-                        td1.append(match.stop_name);
-                        var td2 = $('<td></td>').append(station.arrival_time);
-                        var td3 = $('<td></td>');
-                        for (var i=0; i<match.wheelchair_boarding; i++) {
-                            td3.append($('<i class="fa fa-wheelchair" aria-hidden="true" style="margin-right: 3px"></i>'));
+                        if (match.stop_name.indexOf('Station' != -1)) {
+                            var str = match.stop_name.replace(" Station", "");
+                            str = str.replace("So.", "South");
+                            td1.append(str);
                         }
-                        tr.append([td1, td2, td3]);
+                        else {
+                            td1.append(match.stop_name);
+                        }
+                        var td2 = $('<td></td>').append(station.arrival_time.slice(0,-3));
+                        var td3 = $('<td></td>').append(station.departure_time.slice(0,-3));
+                        var td4 = $('<td></td>');
+                        for (var i=0; i<match.wheelchair_boarding; i++) {
+                            td4.append($('<i class="fa fa-wheelchair" aria-hidden="true" style="margin-right: 3px"></i>'));
+                        }
+                        var td5 = $('<td></td>').append(day);
+                        tr.append([td1, td2, td3, td4, td5]);
                         parentTrs.push(tr);
                     });
                     body.append(parentTrs);
@@ -146,7 +160,6 @@ InfopanelController.prototype._appendTripsToUI = function(start, end) {
                     if ($(e.target).next().is(':visible')) {
                         $(e.target).next().hide();
                         $(e.target).next().removeClass('station-show');
-
                     }
                     else {
                         $(e.target).next().show();
@@ -165,6 +178,26 @@ InfopanelController.prototype._appendTripsToUI = function(start, end) {
             errLi.addClass('station-show');
         }, 10);
     }
+};
+
+InfopanelController.prototype._calculateTime = function(fromTime, toTime) {
+    var fromHr = parseInt(fromTime[0]);
+    var fromMin = parseInt(fromTime[1]);
+    var toHr = parseInt(toTime[0]);
+    var toMin = parseInt(toTime[1]);
+    if (fromHr == 24) {
+        fromHr = 0;
+    }
+    if (toHr == 24) {
+        toHr = 0;
+    }
+    var timeDiff = (toHr * 60 + toMin) - (fromHr * 60 + fromMin);
+    var hour = (Math.floor(timeDiff/60)).toString();
+    var min = (timeDiff%60).toString();
+    if (hour.length == 1) {
+        hour = "0" + hour;
+    }
+    return [hour, min];
 };
 
 InfopanelController.prototype._getStationsOnClick = function(fromBox, toBox) {

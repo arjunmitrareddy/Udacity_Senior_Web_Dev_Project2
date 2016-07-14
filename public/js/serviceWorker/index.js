@@ -1,4 +1,4 @@
-var staticCache = 'transport-info-v12';
+var staticCache = 'transport-info-v13';
 var imagesCache = 'transport-imgs';
 
 var allCaches = [
@@ -8,17 +8,30 @@ var allCaches = [
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
-        caches.open(imagesCache).then((cache) => {
-            return cache.addAll([
-                'imgs/favicon.png',
-                'fonts/FontAwesome.otf',
-                'fonts/fontawesome-webfont.eot',
-                'fonts/fontawesome-webfont.svg',
-                'fonts/fontawesome-webfont.ttf',
-                'fonts/fontawesome-webfont.woff',
-                'fonts/fontawesome-webfont.woff2'
-            ])
-        })
+        Promise.all(
+            [
+                caches.open(staticCache).then((cache) => {
+                    return cache.addAll([
+                        '/',
+                        'js/lib.js',
+                        'js/main.js',
+                        'css/lib.css',
+                        'css/style.css'
+                    ])
+                }),
+                caches.open(imagesCache).then((cache) => {
+                    return cache.addAll([
+                        'imgs/favicon.png',
+                        'fonts/FontAwesome.otf',
+                        'fonts/fontawesome-webfont.eot',
+                        'fonts/fontawesome-webfont.svg',
+                        'fonts/fontawesome-webfont.ttf',
+                        'fonts/fontawesome-webfont.woff',
+                        'fonts/fontawesome-webfont.woff2'
+                    ])
+                })
+            ]
+        )
     )
 });
 
@@ -43,7 +56,7 @@ self.addEventListener('fetch', (event) => {
             event.respondWith(serveAssets(event.request, imagesCache));
             return;
         }
-        if (requestUrl.pathname.indexOf('/js/') != -1 || requestUrl.pathname.indexOf('/css/') != -1 || requestUrl.pathname.indexOf('/fonts/') != -1) {
+        if (requestUrl.pathname.indexOf('/js/') != -1 || requestUrl.pathname.indexOf('/css/') != -1 || requestUrl.pathname.indexOf('/gtfs/') != -1) {
             event.respondWith(serveAssets(event.request, staticCache));
             return;
         }
@@ -54,7 +67,7 @@ self.addEventListener('fetch', (event) => {
         );
     }
 });
-
+//1
 
 self.addEventListener('message', (event) => {
    if (event.data.skipWait) {

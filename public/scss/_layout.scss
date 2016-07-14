@@ -31,8 +31,9 @@ html, body {
   margin-bottom: 10px;
   padding: 0 0.5em;
   overflow: hidden;
-  width: 25em;
+  width: auto;
   cursor: pointer;
+  min-width: 20em;
 }
 .stations-span {
   border: 0;

@@ -102,7 +102,7 @@ function bundle(b, outputPath) {
       .on('error', plugins.util.log.bind(plugins.util, 'Browserify Error'))
       .pipe(source(outputFile))
       .pipe(buffer())
-      //.pipe(plugins.uglify())
+      .pipe(plugins.uglify())
       .pipe(plugins.sourcemaps.init({loadMaps: true}))
       .pipe(plugins.sourcemaps.write('./'))
       .pipe(gulp.dest('build/public/' + outputDir));
@@ -127,7 +127,7 @@ gulp.task('js:server', () => {
   return gulp.src('server/**/*.js')
       .pipe(plugins.sourcemaps.init())
       .pipe(plugins.babel({stage: 1}))
-     // .pipe(plugins.uglify())
+      .pipe(plugins.uglify())
       .on('error', plugins.util.log.bind(plugins.util))
       .pipe(plugins.sourcemaps.write('.'))
       .pipe(gulp.dest('build/server'));
