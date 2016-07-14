@@ -21,7 +21,7 @@ BootStrap 3
 ##Compiler Used:
 [Babel](https://babeljs.io/)
 
-##Instructions to Run the Application:
+##Instructions to Run the Application (PRODUCTION):
 - Installing dependencies:
 ```{r, engine='bash', count_lines}
 $ npm install
