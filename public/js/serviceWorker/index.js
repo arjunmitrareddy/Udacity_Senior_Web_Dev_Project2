@@ -1,4 +1,4 @@
-var staticCache = 'transport-info-v1';
+var staticCache = 'transport-info-v2';
 var imagesCache = 'transport-imgs';
 
 var allCaches = [

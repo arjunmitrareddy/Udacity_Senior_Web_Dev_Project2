@@ -94,10 +94,8 @@ InfopanelController.prototype._appendTripsToUI = function(start, end) {
             }
             var fromTime = stopTime[0].arrival_time.slice(0, -3).split(":");
             var toTime = stopTime.slice(-1)[0].arrival_time.slice(0, -3).split(":");
-
             var time = this._calculateTime(fromTime, toTime);
-
-
+            newLi.data('day', day);
             newLi.append(`Train - ${stopTime[0].trip_id},  Duration - ${time[0]}:${time[1]}`);
             liArr.push(newLi);
         }
@@ -144,7 +142,7 @@ InfopanelController.prototype._appendTripsToUI = function(start, end) {
                         for (var i=0; i<match.wheelchair_boarding; i++) {
                             td4.append($('<i class="fa fa-wheelchair" aria-hidden="true" style="margin-right: 3px"></i>'));
                         }
-                        var td5 = $('<td data-th="Day Service"></td>').append(day);
+                        var td5 = $('<td data-th="Day Service"></td>').append($(e.target).data('day'));
                         tr.append([td1, td2, td3, td4, td5]);
                         parentTrs.push(tr);
                     });
