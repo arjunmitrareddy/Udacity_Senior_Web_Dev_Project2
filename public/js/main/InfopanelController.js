@@ -123,13 +123,12 @@ InfopanelController.prototype._appendTripsToUI = function(start, end) {
                 });
                 if (!$(e.target).next().is('table')) {
                     $('#station-list > table').not($(e.target).next()).hide();
-                    var table = $('<table class="table table-bordered route-table"><thead><tr><th>Route</th><th>Arrival</th><th>Departure</th><th>Facilities</th><th>Day Service</th></tr></thead></table>');
-                    var body = $('<tbody></tbody>');
+                    var table = $('<table class="route-table rwd-table"><tr><th>Route</th><th>Arrival</th><th>Departure</th><th>Facilities</th><th>Day Service</th></tr></table>');
                     var parentTrs = [];
                     stations.forEach((station) => {
                         var tr = $('<tr style="text-align: left"></tr>');
                         var match = _find(this._allStopsOnly, (stop) => stop.stop_id == station.stop_id );
-                        var td1 = $('<td></td>');
+                        var td1 = $('<td data-th="Route"></td>');
                         td1.append($('<i class="fa fa-train" aria-hidden="true" style="margin-right: 3px"></i>'));
                         if (match.stop_name.indexOf('Station' != -1)) {
                             var str = match.stop_name.replace(" Station", "");
@@ -139,22 +138,22 @@ InfopanelController.prototype._appendTripsToUI = function(start, end) {
                         else {
                             td1.append(match.stop_name);
                         }
-                        var td2 = $('<td></td>').append(station.arrival_time.slice(0,-3));
-                        var td3 = $('<td></td>').append(station.departure_time.slice(0,-3));
-                        var td4 = $('<td></td>');
+                        var td2 = $('<td data-th="Arrival"></td>').append(station.arrival_time.slice(0,-3));
+                        var td3 = $('<td data-th="Departure"></td>').append(station.departure_time.slice(0,-3));
+                        var td4 = $('<td data-th="Facilities"></td>');
                         for (var i=0; i<match.wheelchair_boarding; i++) {
                             td4.append($('<i class="fa fa-wheelchair" aria-hidden="true" style="margin-right: 3px"></i>'));
                         }
-                        var td5 = $('<td></td>').append(day);
+                        var td5 = $('<td data-th="Day Service"></td>').append(day);
                         tr.append([td1, td2, td3, td4, td5]);
                         parentTrs.push(tr);
                     });
-                    body.append(parentTrs);
-                    table.append(body);
+                    table.append(parentTrs);
                     elem.after(table);
                     setTimeout(() => {
                         table.addClass('station-show');
                     }, 10);
+
                 }
                 else {
                     if ($(e.target).next().is(':visible')) {
@@ -170,7 +169,9 @@ InfopanelController.prototype._appendTripsToUI = function(start, end) {
                     }
                 }
             });
-
+            elem.click(() => {
+                elem.get(0).scrollIntoView();
+            });
         });
     }
     else {

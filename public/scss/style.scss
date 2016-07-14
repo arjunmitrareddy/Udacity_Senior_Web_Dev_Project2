@@ -4,6 +4,7 @@
 @import "layout";
 @import "components/toolbar";
 @import "components/infopanel";
+@import "components/responsive-table";
 
 @font-face {
   font-family: 'Roboto';
@@ -49,6 +50,9 @@ button:-moz-focus-inner {
 button {
   cursor: pointer;
 }
+label {
+  margin-bottom: 8px !important;
+}
 
 .unbutton {
   display: inline-block;
@@ -58,4 +62,11 @@ button {
   margin: 0;
   font: inherit;
   white-space: nowrap;
+}
+@media (min-width: 768px) {
+  .form-horizontal .control-label {
+    padding-top: 7px;
+    margin-bottom: 10px !important;
+    text-align: right;
+  }
 }

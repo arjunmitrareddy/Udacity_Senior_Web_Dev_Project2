@@ -28,7 +28,6 @@ gulp.task('copy', ['convertGTFS'], () => {
       ]).pipe(plugins.concat('lib.css')).pipe(plugins.csso({comments: false})).pipe(gulp.dest('build/public/css/')),
       gulp.src([
         'node_modules/jquery/dist/jquery.min.js',
-        'node_modules/npm-modernizr/modernizr.js',
         'node_modules/bootstrap/dist/js/bootstrap.min.js',
         'node_modules/jquery-autocomplete/jquery.autocomplete.js'
       ]).pipe(plugins.concat('lib.js')).pipe(plugins.uglify()).pipe(gulp.dest('build/public/js/')),
