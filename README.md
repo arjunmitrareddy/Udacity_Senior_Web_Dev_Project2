@@ -31,5 +31,6 @@ $ npm install
 ```{r, engine='bash', count_lines}
 $ npm run serve
 ```
+npm run serve, will run gulp serve, which will Compile, Collect & Minify all the Required Assets and Place them in a build directory and then serve it.
 
 
