@@ -4,6 +4,12 @@ The application utilizes Service Worker and IndexedDB.
 
 ##[DEMO](https://offline-first-amr.herokuapp.com)  
 
+### Mobile  
+<img src="https://github.com/arjunmitrareddy/Udacity_Senior_Web_Dev_Project2/blob/master/public/imgs/mobile.png" width="300" height="500" />
+
+###Desktop
+![image](https://github.com/arjunmitrareddy/Udacity_Senior_Web_Dev_Project2/blob/master/public/imgs/desktop.png)
+
 ##Technologies Used:
 [ECMAScript 6](http://es6-features.org/)
 [IndexedDB](https://developer.mozilla.org/en/docs/Web/API/IndexedDB_API)  
