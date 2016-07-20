@@ -9,6 +9,7 @@ The application utilizes Service Worker and IndexedDB.
 
 ###Desktop
 ![image](https://github.com/arjunmitrareddy/Udacity_Senior_Web_Dev_Project2/blob/master/public/imgs/desktop.png)
+Application fully functional in offline mode.
 
 ##Technologies Used:
 [ECMAScript 6](http://es6-features.org/)
