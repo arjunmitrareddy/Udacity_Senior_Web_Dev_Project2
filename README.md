@@ -12,17 +12,22 @@ The application utilizes Service Worker and IndexedDB.
 
 ##Technologies Used:
 [ECMAScript 6](http://es6-features.org/)
+
 [IndexedDB](https://developer.mozilla.org/en/docs/Web/API/IndexedDB_API)  
+
 [Service Worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
+
 [Handlebars.js](http://handlebarsjs.com/)
+
 [Node.js](https://nodejs.org/en/)
-JavaScript  
+
 JQuery  
+
 [Gulp](http://gulpjs.com/)
+
 [Sass](http://sass-lang.com/)
-HTML5  
-CSS3  
-BootStrap 3  
+
+HTML5, CSS3, BootStrap 3  
 
 ##Compiler Used:
 [Babel](https://babeljs.io/)
