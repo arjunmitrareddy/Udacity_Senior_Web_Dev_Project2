@@ -2,9 +2,6 @@ import express from 'express';
 import zlib from 'zlib';
 import compression from 'compression';
 import http from 'http'; //for http server
-import net from 'net'; //for tcp/local server
-//import url from 'url';
-import {Server as WebSocketServer} from 'ws';
 import indexTemplate from './templates/index';
 import infoPanelTemplate from './templates/infoPanel';
 
@@ -18,15 +15,8 @@ export default class Server {
     constructor(port) {
         this._app = express();
         this._port = port;
-        this._serverUp = false;
         this._appServerUp = false;
-        this._messages = [];
-        this._sockets = [];
-
         this._appServer = http.createServer(this._app);
-
-
-
 
         const staticOptions = {
             maxAge: 0
