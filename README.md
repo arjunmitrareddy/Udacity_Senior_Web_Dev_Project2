@@ -1,6 +1,6 @@
 # Caltrain 
 Offline First, Mobile First Public Transportation Application. Second Project in the Udacity Senior Web Developer Nanodegree Program.
-The application utilizes Service Worker and IndexedDB.
+The application utilizes Service Worker to enable offline functionality and IndexedDB to store the train data fetched from Caltrain API.
 
 ##[DEMO](https://offline-first-amr.herokuapp.com)  
 
